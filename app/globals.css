@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f4ede0;
+  --paper-strong: #fbf8f2;
+  --ink: #141311;
+  --muted-ink: #5f5b54;
+  --accent: #d3542a;
+  --accent-soft: #ff8d5d;
+  --steel: #6c737f;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background:
+    radial-gradient(circle at top left, rgba(211, 84, 42, 0.12), transparent 28%),
+    radial-gradient(circle at 86% 12%, rgba(108, 115, 127, 0.14), transparent 24%),
+    linear-gradient(180deg, #fbf8f2 0%, #efe5d2 100%);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(20, 19, 17, 0.03) 0, rgba(20, 19, 17, 0.03) 1px, transparent 1px, transparent 104px),
+    linear-gradient(180deg, rgba(20, 19, 17, 0.03) 0, rgba(20, 19, 17, 0.03) 1px, transparent 1px, transparent 104px),
+    linear-gradient(180deg, #fbf8f2 0%, #efe5d2 100%);
+  font-family: var(--font-sans), sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(211, 84, 42, 0.2);
+}
+
+.page-root {
+  position: relative;
+  isolation: isolate;
+}
+
+.page-root::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  content: "";
+  background:
+    radial-gradient(circle at 8% 12%, rgba(211, 84, 42, 0.14), transparent 18%),
+    radial-gradient(circle at 80% 10%, rgba(108, 115, 127, 0.16), transparent 20%);
+  pointer-events: none;
+}
+
+.page-root::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.18;
+  content: "";
+  background-image:
+    repeating-linear-gradient(0deg, rgba(20, 19, 17, 0.5) 0, rgba(20, 19, 17, 0.5) 1px, transparent 1px, transparent 4px),
+    repeating-linear-gradient(90deg, rgba(20, 19, 17, 0.35) 0, rgba(20, 19, 17, 0.35) 1px, transparent 1px, transparent 5px);
+  background-size: 120px 120px, 180px 180px;
+  mask-image: radial-gradient(circle at center, black 28%, transparent 82%);
+  pointer-events: none;
+}
+
+.section-kicker {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.section-title {
+  margin-top: 0.9rem;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.3rem, 5vw, 4.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+}
+
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+[data-slot="accordion-content"][data-state="open"] {
+  animation: accordion-down 0.22s ease-out;
+}
+
+[data-slot="accordion-content"][data-state="closed"] {
+  animation: accordion-up 0.2s ease-out;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.22s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+
+@media (max-width: 960px) {
+  .section-title {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -26,8 +26,14 @@ const mono = IBM_Plex_Mono({
 
 const siteUrl = getRuntimeSiteUrl(siteContent.metadata.url);
 const projectName = process.env.NEXT_PUBLIC_PROJECT_NAME?.trim() || "gstack";
-const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID?.trim() || "";
-const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID?.trim() || "";
+const googleAnalyticsId =
+  process.env.GOOGLE_ANALYTICS_ID?.trim() ||
+  process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID?.trim() ||
+  "";
+const clarityProjectId =
+  process.env.CLARITY_PROJECT_ID?.trim() ||
+  process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID?.trim() ||
+  "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

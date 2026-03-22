@@ -24,16 +24,10 @@ const mono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
+export const dynamic = "force-dynamic";
+
 const siteUrl = getRuntimeSiteUrl(siteContent.metadata.url);
 const projectName = process.env.NEXT_PUBLIC_PROJECT_NAME?.trim() || "gstack";
-const googleAnalyticsId =
-  process.env.GOOGLE_ANALYTICS_ID?.trim() ||
-  process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID?.trim() ||
-  "";
-const clarityProjectId =
-  process.env.CLARITY_PROJECT_ID?.trim() ||
-  process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID?.trim() ||
-  "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -88,6 +82,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const googleAnalyticsId =
+    process.env.GOOGLE_ANALYTICS_ID?.trim() ||
+    process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID?.trim() ||
+    "";
+  const clarityProjectId =
+    process.env.CLARITY_PROJECT_ID?.trim() ||
+    process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID?.trim() ||
+    "";
+
   return (
     <html lang="en">
       <body
@@ -100,6 +103,7 @@ export default function RootLayout({
               src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
             />
             <script
+              id="google-analytics"
               dangerouslySetInnerHTML={{
                 __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -109,12 +113,12 @@ gtag("config", "${googleAnalyticsId}", {
   page_path: window.location.pathname,
 });`,
               }}
-              id="google-analytics"
             />
           </>
         ) : null}
         {clarityProjectId ? (
           <script
+            id="microsoft-clarity"
             dangerouslySetInnerHTML={{
               __html: `(function(c,l,a,r,i,t,y){
 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -122,7 +126,6 @@ t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 })(window, document, "clarity", "script", "${clarityProjectId}");`,
             }}
-            id="microsoft-clarity"
           />
         ) : null}
         {children}

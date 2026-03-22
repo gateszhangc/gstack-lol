@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { IBM_Plex_Mono, IBM_Plex_Sans, Newsreader } from "next/font/google";
 
+import { getRuntimeSiteUrl } from "@/lib/runtime-site-url";
 import { siteContent } from "@/lib/site-content";
 
 import "./globals.css";
@@ -24,26 +24,17 @@ const mono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_WEB_URL?.trim() || siteContent.metadata.url;
+const siteUrl = getRuntimeSiteUrl(siteContent.metadata.url);
 const projectName = process.env.NEXT_PUBLIC_PROJECT_NAME?.trim() || "gstack";
-const googleAnalyticsId =
-  process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID?.trim() || "G-STACKLOL01";
-const clarityProjectId =
-  process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID?.trim() || "vz9t2p8hn3";
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID?.trim() || "";
+const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID?.trim() || "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: siteContent.metadata.title,
   description: siteContent.metadata.description,
   applicationName: projectName,
-  keywords: [
-    "gstack",
-    "garry tan gstack",
-    "ai software factory",
-    "ai engineering workflow",
-    "claude code workflow",
-    "gstack install",
-  ],
+  keywords: [...siteContent.metadata.keywords],
   authors: [{ name: "gstack.lol" }],
   creator: "gstack.lol",
   publisher: "gstack.lol",
@@ -98,29 +89,35 @@ export default function RootLayout({
       >
         {googleAnalyticsId ? (
           <>
-            <Script
+            <script
+              async
               src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
-              strategy="afterInteractive"
             />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`window.dataLayer = window.dataLayer || [];
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag("js", new Date());
 gtag("config", "${googleAnalyticsId}", {
   anonymize_ip: true,
   page_path: window.location.pathname,
-});`}
-            </Script>
+});`,
+              }}
+              id="google-analytics"
+            />
           </>
         ) : null}
         {clarityProjectId ? (
-          <Script id="microsoft-clarity" strategy="afterInteractive">
-            {`(function(c,l,a,r,i,t,y){
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(c,l,a,r,i,t,y){
 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "${clarityProjectId}");`}
-          </Script>
+})(window, document, "clarity", "script", "${clarityProjectId}");`,
+            }}
+            id="microsoft-clarity"
+          />
         ) : null}
         {children}
       </body>

@@ -1,8 +1,32 @@
 import type { MetadataRoute } from "next";
+import { headers } from "next/headers";
 
-const siteUrl = process.env.NEXT_PUBLIC_WEB_URL?.trim() || "https://gstack.lol";
+export const dynamic = "force-dynamic";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+async function resolveSiteUrl() {
+  const headerStore = await headers();
+  const forwardedHost = headerStore.get("x-forwarded-host");
+  const host = forwardedHost || headerStore.get("host");
+  const isLocalHost = host?.includes("127.0.0.1") || host?.includes("localhost");
+  const protocol =
+    headerStore.get("x-forwarded-proto") || (isLocalHost ? "http" : "https");
+
+  if (host) {
+    return `${protocol}://${host}`;
+  }
+
+  const configured = process.env.NEXT_PUBLIC_WEB_URL?.trim();
+
+  if (configured) {
+    return configured;
+  }
+
+  return "https://gstack.lol";
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const siteUrl = await resolveSiteUrl();
+
   return [
     {
       url: siteUrl,

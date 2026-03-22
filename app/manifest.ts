@@ -1,14 +1,16 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_WEB_URL?.trim() || "https://gstack.lol";
+import { getRuntimeSiteUrl } from "@/lib/runtime-site-url";
+import { siteContent } from "@/lib/site-content";
+
+const siteUrl = getRuntimeSiteUrl(siteContent.metadata.url);
 const projectName = process.env.NEXT_PUBLIC_PROJECT_NAME?.trim() || "gstack";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: projectName,
     short_name: "gstack",
-    description:
-      "Explore gstack, Garry Tan's open source AI software factory for founders and technical teams.",
+    description: siteContent.metadata.description,
     start_url: siteUrl,
     display: "standalone",
     background_color: "#fbf8f2",

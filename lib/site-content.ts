@@ -1,163 +1,179 @@
 export const siteContent = {
   metadata: {
-    title: "gstack | AI software factory for founders and technical teams",
+    title: "gstack | Garry Tan's Workflow for Claude Code and Codex",
     description:
-      "Explore gstack, Garry Tan's open source AI software factory: 15 specialists, 6 power tools, a sprint-shaped workflow, and a 10-minute path from install to useful output.",
+      "gstack is Garry Tan's open-source workflow for Claude Code and Codex: frame the work, review harder, run browser QA, and ship with release discipline.",
     url: "https://gstack.lol",
     githubUrl: "https://github.com/garrytan/gstack",
+    keywords: [
+      "gstack",
+      "garry tan gstack",
+      "claude code workflow",
+      "codex workflow",
+      "ai engineering workflow",
+      "browser qa for ai coding",
+      "ai code review workflow",
+      "gstack install",
+    ],
   },
   hero: {
-    eyebrow: "Garry Tan's AI software factory, reframed like an editorial front page.",
-    headline: "gstack is the AI software factory that lets one builder ship like a team of twenty.",
+    eyebrow:
+      "Garry Tan's open-source workflow for Claude Code, Codex, and compatible agents.",
+    headline: "Turn your coding agent into a software team with standards.",
     lede:
-      "gstack turns Claude Code into a managed virtual engineering org: CEO review, design review, paranoid code review, browser QA, release automation, and a sprint workflow that keeps speed from becoming chaos.",
+      "gstack adds a real delivery loop to agent-driven work: reframe the problem, lock the plan, review the code, run browser QA, ship cleanly, and learn from the sprint. You move faster without trusting a blank prompt.",
     proofChips: [
-      "15 specialists",
-      "6 power tools",
-      "Free & MIT licensed",
-      "10-minute quick start",
+      "18 specialists",
+      "7 power tools",
+      "MIT licensed",
+      "30-second install",
     ],
     sideNotes: [
       {
-        label: "Angle",
-        value: "structured agent workflow instead of blank-prompt chaos",
+        label: "Best for",
+        value: "founders, technical leads, and first-time agent users",
       },
       {
-        label: "Audience",
-        value: "founders, first-time Claude Code users, tech leads",
+        label: "Outcome",
+        value: "more shipped work without dropping review, QA, or release discipline",
       },
       {
-        label: "Differentiator",
-        value: "review gates, browser QA, docs, release, and retro in one system",
+        label: "Difference",
+        value: "an ordered workflow instead of one-off prompts and manual cleanup",
       },
     ],
     installCommand:
       "git clone https://github.com/garrytan/gstack.git ~/.codex/skills/gstack\ncd ~/.codex/skills/gstack && ./setup --host codex",
   },
   trustRail: [
-    "Open source MIT license",
-    "Structured sprint process",
-    "Cross-role review gates",
+    "Free and MIT licensed",
     "Works with Claude Code and Codex",
+    "Browser QA built in",
+    "Review and release workflow included",
   ],
   audiences: [
     {
       title: "Founders & CEOs",
       description:
-        "Keep product judgment in the loop while shipping at a pace that usually requires a full stack team.",
+        "Ship more product ideas without rebuilding an engineering org around every new bet.",
     },
     {
-      title: "First-time Claude Code users",
+      title: "First-time agent users",
       description:
-        "Start with named specialists and forcing functions instead of improvising your own operating system from scratch.",
+        "Start with named roles, concrete commands, and a system that tells you what to do next.",
     },
     {
       title: "Tech leads & staff engineers",
       description:
-        "Add architecture review, QA, release discipline, and regression pressure to every feature branch.",
+        "Add architecture review, regression pressure, browser QA, and release discipline to every branch.",
     },
   ],
   workflow: [
     {
       step: "Think",
       detail:
-        "/office-hours reframes the pain, challenges the feature request, and writes the design doc.",
+        "/office-hours turns a feature request into a sharper problem, a better wedge, and a design doc the rest of the stack can use.",
     },
     {
       step: "Plan",
       detail:
-        "/plan-ceo-review and /plan-eng-review lock scope, architecture, edge cases, and tests.",
+        "/plan-ceo-review, /plan-eng-review, and /plan-design-review pressure-test scope, architecture, UX, and tests before code starts.",
     },
     {
       step: "Build",
       detail:
-        "Implementation happens against a tighter spec, with design and engineering intent already aligned.",
+        "Implementation runs against a real brief instead of improvised prompts and shifting intent.",
     },
     {
       step: "Review",
       detail:
-        "/review and /codex inspect the branch like senior engineers trying to break it before prod does.",
+        "/review inspects the branch like a senior engineer looking for regressions, gaps, and hidden risk before prod does.",
     },
     {
       step: "Test",
       detail:
-        "/qa opens a real browser, finds UX bugs, fixes them, and generates regression coverage.",
+        "/qa opens a real browser, walks the app like a user, fixes issues, and turns them into regression coverage.",
     },
     {
       step: "Ship",
       detail:
-        "/ship runs the release checklist, coverage audit, PR creation, and documentation sync.",
+        "/ship handles the last-mile checks so branches land with tests, docs, and release discipline intact.",
     },
     {
       step: "Reflect",
       detail:
-        "/retro closes the loop with team-aware stats, streaks, and process pressure for the next sprint.",
+        "/retro closes the loop with stats, patterns, and pressure for a better next sprint.",
     },
   ],
   specialists: [
     {
       name: "/office-hours",
-      role: "YC-style product reframing",
+      role: "Product reframing",
       summary:
-        "Pushes back on the feature request and finds the sharper wedge hiding inside it.",
+        "Pushes past the first idea, sharpens the wedge, and writes the brief downstream commands inherit.",
     },
     {
       name: "/plan-ceo-review",
-      role: "Founder-level scope judgment",
+      role: "Scope and ambition",
       summary:
-        "Rethinks the product surface and looks for the 10-star version worth expanding toward.",
+        "Challenges the request, finds the stronger product move, and protects you from shipping a weak version.",
     },
     {
       name: "/plan-eng-review",
-      role: "Architecture lock-in",
+      role: "Architecture and tests",
       summary:
-        "Turns hand-wavy implementation intent into data flow, failure modes, and a testable plan.",
+        "Turns hand-wavy intent into data flow, failure modes, edge cases, and a plan the code can actually follow.",
     },
     {
       name: "/review",
-      role: "Staff engineer bug finder",
+      role: "Production-minded review",
       summary:
-        "Targets production regressions, completeness gaps, and the issues CI usually misses.",
+        "Targets regressions, missing tests, and the issues happy-path implementation usually leaves behind.",
     },
     {
       name: "/qa",
       role: "Browser QA that can fix",
       summary:
-        "Navigates your staging app with a real browser and converts discovered issues into regression fixes.",
+        "Navigates your app in a real browser and converts discovered issues into concrete fixes and regression coverage.",
     },
     {
       name: "/ship",
       role: "Release automation",
       summary:
-        "Runs tests, audits coverage, pushes the branch, opens the PR, and keeps the sprint moving.",
+        "Runs the release checklist so code lands with the tests, docs, and process support it needs.",
     },
   ],
   quickStart: [
-    "Clone the repo into your Codex or Claude skills directory.",
-    "Run setup and let gstack register the slash-command specialists.",
-    "Start with /office-hours before implementation so downstream skills inherit a real spec.",
-    "Use /review and /qa on every branch that touches the user experience.",
+    "Clone the repo into your agent's skills directory.",
+    "Run setup and let gstack register the commands for your host.",
+    "Start with /office-hours so the rest of the sprint inherits a real brief.",
+    "Use /review, /qa, and /ship before you merge.",
   ],
   faq: [
     {
       question: "What is gstack?",
       answer:
-        "gstack is Garry Tan's open source AI software factory: a collection of specialized slash commands and power tools that structure how an agent thinks, plans, reviews, tests, and ships software.",
+        "gstack is Garry Tan's open-source workflow for Claude Code, Codex, and compatible agents. It packages specialist commands and power tools into one software delivery system.",
     },
     {
       question: "Who is gstack for?",
       answer:
-        "The primary audience is founders, technical CEOs, first-time Claude Code users, and senior engineers who want the speed of agents without losing review discipline.",
+        "It is built for founders, first-time agent users, and technical leads who want AI speed without lowering the bar on planning, review, QA, and release quality.",
     },
     {
-      question: "Why does gstack feel different from a blank AI coding setup?",
+      question: "Why not just use a blank prompt?",
       answer:
-        "Because the value is not just better prompting. gstack imposes roles, review gates, QA, release automation, and a sprint order so each stage has context from the one before it.",
+        "Because raw speed is not the bottleneck. Trust is. gstack adds roles, order, review gates, QA, and release checks so each step inherits context from the one before it.",
     },
     {
-      question: "How do I install it?",
+      question: "Does gstack work with Claude Code and Codex?",
       answer:
-        "Install it like a skill package, run the setup script, then start with /office-hours and /plan-* before you ask the agent to implement anything.",
+        "Yes. gstack is designed for Claude Code, Codex, and similar agent hosts, so the same workflow can carry product framing, review, browser QA, and release discipline across tools.",
+    },
+    {
+      question: "How quickly can I try it?",
+      answer:
+        "You can install it in about 30 seconds and get to a first useful run in a few minutes on a repo that already knows how to run tests.",
     },
   ],
 } as const;

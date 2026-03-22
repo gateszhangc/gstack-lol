@@ -1,22 +1,34 @@
 import { expect, test } from "@playwright/test";
 
-test("renders the editorial hero and metadata", async ({ page }) => {
+import { siteContent } from "../lib/site-content";
+import {
+  expectedClarityProjectId,
+  expectedGoogleAnalyticsId,
+  expectedWebUrl,
+} from "./test-env";
+
+test("renders the conversion-focused hero and proof", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page).toHaveTitle(/gstack/i);
+  await expect(page).toHaveTitle(siteContent.metadata.title);
   await expect(
     page.getByRole("heading", {
-      name: /gstack is the ai software factory that lets one builder ship like a team of twenty/i,
+      name: /turn your coding agent into a software team with standards/i,
     }),
   ).toBeVisible();
-  await expect(page.getByText(/15 specialists/i)).toBeVisible();
-  await expect(page.getByText(/free & mit licensed/i)).toBeVisible();
+  await expect(page.getByText(/18 specialists/i)).toBeVisible();
+  await expect(page.getByText(/30-second install/i)).toBeVisible();
+  await expect(
+    page.getByText(/you move faster without trusting a blank prompt/i),
+  ).toBeVisible();
 });
 
 test("primary github cta points to the repo", async ({ page }) => {
   await page.goto("/");
 
-  const heroGithubLink = page.getByRole("link", { name: /view on github/i });
+  const heroGithubLink = page.getByRole("link", {
+    name: /install free from github/i,
+  });
   await expect(heroGithubLink).toBeVisible();
   await expect(heroGithubLink).toHaveAttribute(
     "href",
@@ -33,8 +45,21 @@ test("faq accordion expands the answer", async ({ page }) => {
   await trigger.click();
 
   await expect(
-    page.getByText(/garry tan's open source ai software factory/i),
+    page.getByText(
+      /packages specialist commands and power tools into one software delivery system/i,
+    ),
   ).toBeVisible();
+});
+
+test("quick start section keeps the setup path obvious", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(
+    page.getByRole("heading", {
+      name: /install once\. start with \/office-hours\. use it on every branch\./i,
+    }),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: /see the full setup guide/i })).toBeVisible();
 });
 
 test("mobile navigation keeps install access visible", async ({ page, isMobile }) => {
@@ -46,24 +71,52 @@ test("mobile navigation keeps install access visible", async ({ page, isMobile }
   await expect(page.getByRole("img", { name: /gstack brand mark/i })).toBeVisible();
 });
 
+test("emits canonical and social metadata for the production url", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    siteContent.metadata.url,
+  );
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    siteContent.metadata.description,
+  );
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+    "content",
+    siteContent.metadata.url,
+  );
+  await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute(
+    "content",
+    siteContent.metadata.title,
+  );
+});
+
 test("injects analytics and clarity tags from env", async ({ page }) => {
   await page.goto("/");
 
   await expect(
     page.locator('script[src*="googletagmanager.com/gtag/js?id="]'),
-  ).toHaveAttribute("src", /G-/);
+  ).toHaveAttribute(
+    "src",
+    `https://www.googletagmanager.com/gtag/js?id=${expectedGoogleAnalyticsId}`,
+  );
   const clarityScript = page.locator("script#microsoft-clarity");
   await expect(clarityScript).toHaveAttribute("id", "microsoft-clarity");
   await expect
     .poll(async () => (await clarityScript.textContent()) ?? "")
-    .toContain("vz9t2p8hn3");
+    .toContain(expectedClarityProjectId);
+  await expect(page.locator("script#google-analytics")).not.toContainText("G-STACKLOL01");
 });
 
-test("exposes crawl assets for search engines", async ({ page }) => {
+test("exposes crawl assets and manifest for search engines", async ({ page }) => {
   await page.goto("/robots.txt");
   await expect(page.locator("body")).toContainText("Sitemap:");
   await expect(page.locator("body")).toContainText("/sitemap.xml");
 
   await page.goto("/sitemap.xml");
-  await expect(page.locator("body")).toContainText("http://127.0.0.1:3107");
+  await expect(page.locator("body")).toContainText(expectedWebUrl);
+
+  await page.goto("/manifest.webmanifest");
+  await expect(page.locator("body")).toContainText(siteContent.metadata.url);
 });

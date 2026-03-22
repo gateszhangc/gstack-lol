@@ -44,11 +44,36 @@ const faqSchema = {
   })),
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: "gstack",
+      url: siteContent.metadata.url,
+      description: siteContent.metadata.description,
+      inLanguage: "en",
+      keywords: siteContent.metadata.keywords.join(", "),
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      name: "gstack",
+      url: siteContent.metadata.url,
+      codeRepository: siteContent.metadata.githubUrl,
+      description: siteContent.metadata.description,
+      license: "https://github.com/garrytan/gstack/blob/main/LICENSE",
+      runtimePlatform: "Claude Code, Codex, compatible agents",
+      keywords: siteContent.metadata.keywords.join(", "),
+    },
+    faqSchema,
+  ],
+};
+
 export default function Home() {
   return (
     <main className="page-root">
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         type="application/ld+json"
       />
 
@@ -66,6 +91,7 @@ export default function Home() {
                 height={52}
                 priority
                 src="/brand/gstack-mark.png"
+                unoptimized
                 width={52}
               />
               <div className="flex flex-col leading-none">
@@ -150,14 +176,14 @@ export default function Home() {
                   target="_blank"
                 >
                   <Github className="size-4" />
-                  View on GitHub
+                  Install Free from GitHub
                   <ArrowUpRight className="size-4" />
                 </Link>
                 <Link
                   className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
                   href="#quick-start"
                 >
-                  Install in 10 minutes
+                  See the quick start
                   <ArrowRight className="size-4" />
                 </Link>
               </div>
@@ -187,6 +213,7 @@ export default function Home() {
                     height={44}
                     src="/brand/gstack-logo.png"
                     style={{ height: "44px", width: "auto" }}
+                    unoptimized
                     width={158}
                   />
                 </div>
@@ -247,7 +274,10 @@ export default function Home() {
         >
           <div className="rounded-[32px] border border-stone-950/10 bg-[rgba(255,255,255,0.8)] p-6 shadow-[0_20px_60px_rgba(17,17,17,0.07)] sm:p-8">
             <p className="section-kicker">Who it is for</p>
-            <h2 className="section-title">The keyword says “gstack.” The real pitch is software governance for fast-moving builders.</h2>
+            <h2 className="section-title">
+              For builders who want agent speed without lowering the engineering
+              bar.
+            </h2>
             <div className="mt-8 space-y-4">
               {siteContent.audiences.map((item, index) => (
                 <article
@@ -284,7 +314,7 @@ export default function Home() {
           <div className="rounded-[32px] border border-stone-950/10 bg-stone-950 p-6 text-stone-50 shadow-[0_24px_70px_rgba(17,17,17,0.18)] sm:p-8">
             <p className="section-kicker text-stone-400">Sprint workflow</p>
             <h2 className="section-title max-w-2xl text-stone-50">
-              Think → plan → build → review → test → ship → reflect.
+              A delivery system for AI coding, not a pile of prompts.
             </h2>
             <div className="mt-8 grid gap-4">
               {siteContent.workflow.map((item) => (
@@ -305,13 +335,15 @@ export default function Home() {
         <section className="mt-6 rounded-[32px] border border-stone-950/10 bg-[rgba(255,255,255,0.76)] p-6 shadow-[0_20px_60px_rgba(17,17,17,0.07)] sm:p-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
-              <p className="section-kicker">Six of the fifteen</p>
+              <p className="section-kicker">Six of the eighteen</p>
               <h2 className="section-title">
-                The memorable part of gstack is not one prompt. It is the bench depth.
+                These are the commands that make gstack useful every sprint.
               </h2>
             </div>
             <p className="max-w-xl text-sm leading-7 text-stone-600">
-              These are the commands people remember because they compress product thinking, engineering review, QA, and release discipline into one repeatable loop.
+              Each one covers a job that usually gets skipped when teams chase raw
+              agent speed: sharper framing, better plans, tougher review, real QA,
+              and cleaner releases.
             </p>
           </div>
 
@@ -362,7 +394,7 @@ export default function Home() {
           <div className="rounded-[32px] border border-stone-950/10 bg-[linear-gradient(135deg,rgba(211,84,42,0.96),rgba(120,45,17,0.96))] p-6 text-stone-50 shadow-[0_24px_70px_rgba(141,63,28,0.18)] sm:p-8">
             <p className="section-kicker text-stone-200">Quick start</p>
             <h2 className="section-title max-w-xl text-stone-50">
-              Useful in under ten minutes if your project already knows how to test itself.
+              Install once. Start with /office-hours. Use it on every branch.
             </h2>
 
             <ol className="mt-8 space-y-4">
@@ -386,7 +418,7 @@ export default function Home() {
                 <div>
                   <p className="section-kicker text-stone-400">Install command</p>
                   <h3 className="font-display mt-2 text-[2.8rem] italic leading-none text-stone-50">
-                    Copy, run, start with <span className="text-[#ff8d5d]">/office-hours</span>.
+                    Copy, run, then start with <span className="text-[#ff8d5d]">/office-hours</span>.
                   </h3>
                 </div>
                 <Github className="hidden size-7 text-[#ff8d5d] sm:block" />
@@ -408,11 +440,11 @@ export default function Home() {
                 </Link>
                 <Link
                   className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
-                  href="https://ui.shadcn.com"
+                  href={siteContent.metadata.githubUrl}
                   rel="noreferrer"
                   target="_blank"
                 >
-                  Built with Next.js + shadcn/ui
+                  See the full setup guide
                   <ArrowUpRight className="size-4" />
                 </Link>
               </div>
@@ -424,10 +456,10 @@ export default function Home() {
           <div className="rounded-[32px] border border-stone-950/10 bg-[rgba(255,255,255,0.8)] p-6 shadow-[0_20px_60px_rgba(17,17,17,0.07)] sm:p-8">
             <p className="section-kicker">FAQ</p>
             <h2 className="section-title max-w-2xl">
-              The short answers a serious visitor asks before trying the stack.
+              The questions serious builders ask before they install.
             </h2>
 
-            <Accordion className="mt-8" collapsible type="single">
+            <Accordion className="mt-8" collapsible initialValue="item-1" type="single">
               {siteContent.faq.map((item, index) => (
                 <AccordionItem key={item.question} value={`item-${index + 1}`}>
                   <AccordionTrigger>{item.question}</AccordionTrigger>
@@ -440,10 +472,13 @@ export default function Home() {
           <aside className="rounded-[32px] border border-stone-950/10 bg-stone-50/85 p-6 shadow-[0_20px_60px_rgba(17,17,17,0.07)] sm:p-8">
             <p className="section-kicker">Final nudge</p>
             <h2 className="font-display text-[3rem] leading-[0.92] tracking-[-0.05em] text-stone-950">
-              Structured roles beat generic agent chaos.
+              Fast agent output is easy. Reliable shipping is the hard part.
             </h2>
             <p className="mt-4 text-base leading-7 text-stone-700">
-              If you already believe agents can write code, the question is not whether they are fast. The question is whether your workflow can catch mistakes before production does.
+              If you already believe agents can generate code, the remaining
+              question is operational: can your workflow catch bad decisions, UX
+              bugs, and release risk before production does? gstack is built for
+              that.
             </p>
 
             <div className="mt-8 flex flex-col gap-3">
@@ -458,9 +493,9 @@ export default function Home() {
               </Link>
               <Link
                 className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
-                href="/brand/editorial-circuitry.md"
+                href="#quick-start"
               >
-                View brand philosophy
+                Jump to quick start
               </Link>
             </div>
           </aside>

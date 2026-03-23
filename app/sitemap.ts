@@ -4,6 +4,12 @@ import { headers } from "next/headers";
 export const dynamic = "force-dynamic";
 
 async function resolveSiteUrl() {
+  const configured = process.env.NEXT_PUBLIC_WEB_URL?.trim();
+
+  if (configured) {
+    return configured;
+  }
+
   const headerStore = await headers();
   const forwardedHost = headerStore.get("x-forwarded-host");
   const host = forwardedHost || headerStore.get("host");
@@ -13,12 +19,6 @@ async function resolveSiteUrl() {
 
   if (host) {
     return `${protocol}://${host}`;
-  }
-
-  const configured = process.env.NEXT_PUBLIC_WEB_URL?.trim();
-
-  if (configured) {
-    return configured;
   }
 
   return "https://gstack.lol";

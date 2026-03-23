@@ -10,6 +10,8 @@ export const buttonVariants = cva(
       variant: {
         default:
           "border-stone-950 bg-stone-950 px-6 py-3 text-stone-50 hover:-translate-y-0.5 hover:bg-[#d3542a] hover:border-[#d3542a]",
+        brand:
+          "button-brand px-6 py-3 text-stone-50 hover:-translate-y-0.5",
         outline:
           "border-stone-950/20 bg-stone-50/70 px-6 py-3 text-stone-950 hover:-translate-y-0.5 hover:border-stone-950/60 hover:bg-stone-100",
         ghost:

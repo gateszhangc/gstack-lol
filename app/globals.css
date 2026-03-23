@@ -98,6 +98,16 @@ a {
   font-family: var(--font-display), serif;
 }
 
+.button-brand {
+  border-color: #d3542a;
+  background-color: #d3542a;
+}
+
+.button-brand:hover {
+  border-color: #b94a25;
+  background-color: #b94a25;
+}
+
 [data-slot="accordion-content"][data-state="open"] {
   animation: accordion-down 0.22s ease-out;
 }

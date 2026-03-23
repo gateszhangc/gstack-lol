@@ -170,13 +170,12 @@ export default function Home() {
 
               <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                 <Link
-                  className={cn(buttonVariants({ size: "lg" }))}
-                  href={siteContent.metadata.githubUrl}
+                  className={cn(buttonVariants({ size: "lg", variant: "brand" }))}
+                  href="https://www.easyclaw.pro"
                   rel="noreferrer"
                   target="_blank"
                 >
-                  <Github className="size-4" />
-                  Install Free from GitHub
+                  One-click deploy
                   <ArrowUpRight className="size-4" />
                 </Link>
                 <Link

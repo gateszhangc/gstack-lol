@@ -23,17 +23,20 @@ test("renders the conversion-focused hero and proof", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("primary github cta points to the repo", async ({ page }) => {
+test("primary deploy cta points to easyclaw with brand styling", async ({ page }) => {
   await page.goto("/");
 
-  const heroGithubLink = page.getByRole("link", {
-    name: /install free from github/i,
+  const heroDeployLink = page.getByRole("link", {
+    name: /one-click deploy/i,
   });
-  await expect(heroGithubLink).toBeVisible();
-  await expect(heroGithubLink).toHaveAttribute(
+  await expect(heroDeployLink).toBeVisible();
+  await expect(heroDeployLink).toHaveAttribute(
     "href",
-    "https://github.com/garrytan/gstack",
+    "https://www.easyclaw.pro",
   );
+  await expect(heroDeployLink).toHaveAttribute("target", "_blank");
+  await expect(heroDeployLink).toHaveClass(/button-brand/);
+  await expect(heroDeployLink).not.toHaveClass(/bg-stone-950/);
 });
 
 test("faq accordion expands the answer", async ({ page }) => {
